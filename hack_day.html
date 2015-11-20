@@ -22,15 +22,13 @@
 		var cube0 = new THREE.Mesh( geometry, material ); 
 		scene.add(cube0)
 
-		var point_geometry = new  THREE.Geometry();
-		point_geometry.addAttribute( 'position', 
-									  new THREE.BufferAttribute( new Float32Array(GAMA_pos), 3 ) );
+		var point_geometry = new THREE.Geometry();
 
 		for (i=0; i<point_list.length; i++){		
 			var vector = new THREE.Vector3(point_list[i][1],
 										   point_list[i][2],
 										   point_list[i][3]);
-			point_geometry.push(vector);
+			point_geometry.vertices.push(vector);
 			/*
 			var geometry = new THREE.BoxGeometry( .2, .2, .2 );
 			var material = new THREE.MeshBasicMaterial( { color: 0xffff00 } ); 
