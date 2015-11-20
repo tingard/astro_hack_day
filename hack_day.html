@@ -54,8 +54,8 @@
 	var controls;
 
 	//viewport size
-	var viewportWidth = 800;
-	var viewportHeight = 600;
+	var viewportWidth = window.width;
+	var viewportHeight = window.height;
 
 	//camera attributes
 	var view_angle = 45,
@@ -96,7 +96,7 @@
 		renderer.setSize(viewportWidth, viewportHeight);
 		viewport = document.getElementById('viewport');
 		viewport.appendChild(renderer.domElement);
-
+		camera.position.z=5.;
 		//attaches fly controls to the camera
 		controls = new THREE.FlyControls( camera );
 		//camera control properties
