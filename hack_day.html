@@ -20,12 +20,14 @@
 
 	function coords_to_points(point_list){
 		console.log('coords_to_points asyncronously called');
-		var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-		var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } ); 
-		var cube = new THREE.Mesh( geometry, material ); 
-		cube.position.x = 2
-		cube.position.y = 2
-		scene.add( cube );
+		for (i=0; i<5; i++){		
+			var geometry = new THREE.BoxGeometry( 0.1, 0.1, 0.1 );
+			var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } ); 
+			var cube = new THREE.Mesh( geometry, material ); 
+			cube.position.x = i*0.3
+			cube.position.y = i*0.3
+			scene.add( cube );
+		}
 	}
     
     var foo;
