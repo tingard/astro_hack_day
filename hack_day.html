@@ -18,18 +18,49 @@
 	function coords_to_points(point_list){
 		console.log('coords_to_points asyncronously called');
 		var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+		var point_geometry = new  THREE.Geometry();
+		point_geometry.addAttribute( 'position', new THREE.BufferAttribute( new Float32Array(GAMA_pos), 3 ) );
+
 		var material = new THREE.MeshBasicMaterial( { color: 0xffff00 } ); 
 		var cube0 = new THREE.Mesh( geometry, material ); 
 		scene.add(cube0)
+
+		var point_geometry = new  THREE.Geometry();
+		point_geometry.addAttribute( 'position', 
+									  new THREE.BufferAttribute( new Float32Array(GAMA_pos), 3 ) );
+
 		for (i=0; i<point_list.length; i++){		
+			var vector = new THREE.Vector3(point_list[i][1],
+										   point_list[i][2],
+										   point_list[i][3]);
+			point_geometry.push(vector);
+			/*
 			var geometry = new THREE.BoxGeometry( .2, .2, .2 );
 			var material = new THREE.MeshBasicMaterial( { color: 0xffff00 } ); 
 			var cube = new THREE.Mesh( geometry, material ); 
 			cube.position.x = point_list[i][1];
 			cube.position.y = point_list[i][2];
 			cube.position.z = point_list[i][3];
-			scene.add( cube );
+			scene.add( cube );*/
 		}
+		attributes = {
+			size: { type: 'f', value: [] },
+			customColor: { type: 'c', value: [] }
+		};
+		uniforms = {
+			color: { type: "c", value: new THREE.Color( 0xFFFFFF ) },
+			texture: { type: "t", value: THREE.ImageUtils.loadTexture( "js/threejs/examples/textures/sprites/disc.png" ) }
+		};
+
+		var shaderMaterial = new THREE.ShaderMaterial( {
+			uniforms: uniforms,
+			attributes: attributes,
+			vertexShader: document.getElementById( 'vertexshader' ).textContent,
+			fragmentShader: document.getElementById( 'fragmentshader' ).textContent,
+			alphaTest: 0.9,
+		} );
+
+		particles = new THREE.PointCloud( geometry, shaderMaterial );
 	}
     
     var foo;
@@ -48,6 +79,17 @@
 		renderer.setSize(viewportWidth, viewportHeight);
 		camera.updateProjectionMatrix();
 	}
+	
+	function onDocumentMouseMove(e) {       
+		mouseVector.x = 2 * (e.clientX / containerWidth) - 1;
+		mouseVector.y = 1 - 2 * (e.clientY / containerHeight);
+		var vector = new THREE.Vector3(mouseVector.x, mouseVector.y, 0.5).unproject(camera);
+		raycaster.ray.set(camera.position, vector.sub(camera.position).normalize());
+		scene.updateMatrixWorld();
+		intersects = raycaster.intersectObject(particles);
+		console.log(intersects);
+	}
+	
 	var viewport;
 
 	//built-in three.js controls will be attached to this
@@ -74,8 +116,10 @@
 	near,
 	far
 	);
-
-
+	
+	// need to increase collision detection radius
+	THREE.Raycaster.params.PointCloud.threshold = 10
+	
 	//a cross-browser method for efficient animation, more info at:
 	// http://paulirish.com/2011/requestanimationframe-for-smart-animating/
 	window.requestAnimFrame = (function(){
@@ -128,6 +172,7 @@
 		renderer.render(scene, camera);
 	}
 	window.addEventListener( 'resize', onWindowResize, false );
+	window.addEventListener( 'mousemove', onMouseMove, false );
 
 </script> 
 </head>
