@@ -6,7 +6,7 @@
 <style> body { margin: 0; } canvas { width: 100%; height: 100% } </style> 
 <script style="text/javasript" src="js/PapaParse-4.1.2/papaparse.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r73/three.min.js"></script> 
-<script src="http://astronomy.susx.ac.uk/~tl229/astro_hack_day/js/OrbitControls.js"></script> 
+<script src="http://astronomy.susx.ac.uk/~tl229/astro_hack_day/js/FlyControls.js"></script> 
 </head> 
 <body>
 
@@ -45,13 +45,15 @@
 	var renderer = new THREE.WebGLRenderer(); renderer.setSize( window.innerWidth, window.innerHeight );
 	document.body.appendChild( renderer.domElement );
 	camera.position.z = 5;
-	controls = new THREE.OrbitControls( camera, renderer.domElement );
-	//controls.addEventListener( 'change', render ); // add this only if there is no animation loop (requestAnimationFrame)
-	controls.enableDamping = true;
-	controls.dampingFactor = 0.25;
-	controls.enableZoom = false;
+	controls = new THREE.FlyControls( camera );
+	controls.movementSpeed = 1000;
+	controls.domElement = container;
+	controls.rollSpeed = Math.PI / 24;
+	controls.autoForward = false;
+	controls.dragToLook = false;
+
 	function render() { requestAnimationFrame( render ); renderer.render( scene, camera ); } render();
 </script> 
 </body>
-
 </html>
+
