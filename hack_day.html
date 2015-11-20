@@ -18,7 +18,7 @@
 	function coords_to_points(point_list){
 		console.log('coords_to_points asyncronously called');
 		for (i=0; i<5; i++){		
-			var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+			var geometry = new THREE.BoxGeometry( 10, 10, 10 );
 			var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } ); 
 			var cube = new THREE.Mesh( geometry, material ); 
 			cube.position.x = point_list[i][0];
@@ -28,7 +28,7 @@
 	}
     
     var foo;
-	Papa.parse("http://astronomy.sussex.ac.uk/~tl229/WP8_photoz_COSMOS.csv", {
+	Papa.parse("http://astronomy.sussex.ac.uk/~tl229/cart_WP8_photoz_XMM_LSS.csv", {
 		download: true,
 		complete: function(results, foo) {
 			foo = results.data;
@@ -38,10 +38,9 @@
 	})
 	
 	function onWindowResize( event ) {
-		SCREEN_HEIGHT = window.innerHeight;
-		SCREEN_WIDTH  = window.innerWidth;
-		renderer.setSize( SCREEN_WIDTH, SCREEN_HEIGHT );
-		camera.aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
+		//SCREEN_HEIGHT = window.innerHeight;
+		//SCREEN_WIDTH  = window.innerWidth;
+		renderer.setSize(viewportWidth, viewportHeight);
 		camera.updateProjectionMatrix();
 	}
 	var viewport;
