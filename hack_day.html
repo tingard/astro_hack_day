@@ -93,7 +93,7 @@
 	var renderer = new THREE.WebGLRenderer({antialias: true});
 	var scene = new THREE.Scene();
 
-	raycaster = new THREE.Raycaster();
+	var raycaster = new THREE.Raycaster();
 	raycaster.params.Points.threshold = threshold;
 
 	var camera = new THREE.PerspectiveCamera(
@@ -104,7 +104,6 @@
 	);
 	
 	var pointCloud;
-	var raycaster;
 	var mouse = new THREE.Vector2();
 	var intersection = null;
 	var threshold = 0.1;
