@@ -157,16 +157,15 @@
 		event.preventDefault();
 		mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 		mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-		if (mouseDown){
-			raycaster.setFromCamera( mouse, camera );
-			var intersections = raycaster.intersectObjects( scene.children );
-			intersection = ( intersections.length ) > 0 ? intersections[ 0 ] : null;
-			console.log(intersection);
-		}
 	}
 
 	//----Draw----//
 	function draw() {
+		requestAnimationFrame(draw)
+		raycaster.setFromCamera( mouse, camera );
+		var intersections = raycaster.intersectObjects( scene.children );
+		intersection = ( intersections.length ) > 0 ? intersections[ 0 ] : null;
+		console.log(intersection);
 		renderer.render(scene, camera);
 	}
 	function onMouseDown(){
