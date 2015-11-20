@@ -43,8 +43,8 @@
 	var renderer = new THREE.WebGLRenderer(); renderer.setSize( window.innerWidth, window.innerHeight );
 	document.body.appendChild( renderer.domElement );
 	camera.position.z = 5;
-	controls = new THREE.TrackballControls( camera );
-	controls.target.set( 0, 0, 0 )
+	//controls = new THREE.TrackballControls( camera );
+	//controls.target.set( 0, 0, 0 )
 	function render() { requestAnimationFrame( render ); renderer.render( scene, camera ); } render();
 </script> 
 </body>
