@@ -171,8 +171,8 @@
 	}
 	window.addEventListener( 'resize', onWindowResize, false );
 	window.addEventListener( 'mousemove', onDocumentMouseMove, false );
-	window.addEventListener( 'mousedown', function(){++mouseDown;}, false );
-	window.addEventListener( 'mouseup', function(){--mouseDown;}, false );
+	window.addEventListener( 'mousedown', function(){++mouseDown; console.log('mousedown')}, false );
+	window.addEventListener( 'mouseup', function(){--mouseDown; console.log('mousedown')}, false );
 </script> 
 </head>
 <body onload="initialize();">
