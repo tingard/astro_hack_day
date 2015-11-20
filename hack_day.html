@@ -162,10 +162,10 @@
 
 	//----Draw----//
 	function draw() {
-		//raycaster.setFromCamera( mouse, camera );
-		//var intersections = raycaster.intersectObjects( [pointCloud] );
-		//intersection = ( intersections.length ) > 0 ? intersections[ 0 ] : null;
-		//console.log(intersection);
+		raycaster.setFromCamera( mouse, camera );
+		var intersections = raycaster.intersectObjects( [pointCloud] );
+		intersection = ( intersections.length ) > 0 ? intersections[ 0 ] : null;
+		console.log(intersection);
 		renderer.render(scene, camera);
 	}
 	window.addEventListener( 'resize', onWindowResize, false );
