@@ -17,6 +17,10 @@
 
 	function coords_to_points(point_list){
 		console.log('coords_to_points asyncronously called');
+		var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+		var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } ); 
+		var cube0 = new THREE.Mesh( geometry, material ); 
+		scene.add(cube0)
 		for (i=0; i<5; i++){		
 			var geometry = new THREE.BoxGeometry( 10, 10, 10 );
 			var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } ); 
