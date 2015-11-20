@@ -163,15 +163,13 @@
 	//----Draw----//
 	function draw() {
 		raycaster.setFromCamera( mouse, camera );
+		var intersections = raycaster.intersectObject( pointCloud );
+		intersection = ( intersections.length ) > 0 ? intersections[ 0 ] : null;
+		console.log(intersection);
 		renderer.render(scene, camera);
 	}
 	window.addEventListener( 'resize', onWindowResize, false );
 	window.addEventListener( 'mousemove', onDocumentMouseMove, false );
-	var intersections = raycaster.intersectObject( pointCloud );
-	intersection = ( intersections.length ) > 0 ? intersections[ 0 ] : null;
-	if (intersection){
-		console.log(intersection);
-	}
 </script> 
 </head>
 <body onload="initialize();">
