@@ -49,52 +49,23 @@
 		camera.updateProjectionMatrix();
 		composer.reset();
 	}
-	/*
+
 	window.addEventListener( 'resize', onWindowResize, false );
 	var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 	camera.position.z = 5;
 	container = document.createElement( 'div' );
 	document.body.appendChild( container );
-	controls = new THREE.FlyControls( camera );
+	controls = new THREE.FlyControls( camera, container );
 	controls.movementSpeed = .5;
 	controls.domElement = container;
 	controls.rollSpeed = Math.PI / 24;
 	controls.autoForward = false;
 	controls.dragToLook = false;
-	var renderer = new THREE.WebGLRenderer(); renderer.setSize( window.innerWidth, window.innerHeight );
+	var renderer = new THREE.WebGLRenderer(); 
+	renderer.setSize( window.innerWidth, window.innerHeight );
 	container.appendChild( renderer.domElement );
 	function render() { requestAnimationFrame( render ); renderer.render( scene, camera ); } render();
-	*/
-	var dummy = new THREE.Object3D();
-	var renderer = new THREE.WebGLRenderer({antialias: true});
-	var viewport, controls;
-	var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-	camera.position.z = 5;
-	viewport = document.body
-	//Sets up the renderer to the same size as a DOM element
-	//then attaches it to that element
-	function initilization() {
-		renderer.setSize(viewport.width, viewport.height);
-		document.body.appendChild(renderer.domElement);
-		controls = new THREE.FlyControls( camera, viewport );
-		controls.movementSpeed = 0;
-		controls.rollSpeed = Math.PI/24;
-		controls.autoForward = false;
-		controls.dragToLook = true;
-		scene.add(dummy);
-		dummy.add(camera);
-		update();
-	}
-	function update(){
-		controls.update(1);
-		setTimeout( update, 16 );
-		draw();
-	}
-	//----Draw----//
-	function draw() {
-		renderer.render(scene, camera);
-	}
-	initilization();
+
 </script> 
 </body>
 </html>
