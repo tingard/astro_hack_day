@@ -20,9 +20,11 @@
 
 	function coords_to_points(point_list){
 		console.log('coords_to_points asyncronously called');
-		var geometry = new THREE.BoxGeometry( 2, 2, 2 );
+		var geometry = new THREE.BoxGeometry( 1, 1, 1 );
 		var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } ); 
 		var cube = new THREE.Mesh( geometry, material ); 
+		cube.position.x = 2
+		cube.position.y = 2
 		scene.add( cube );
 	}
     
