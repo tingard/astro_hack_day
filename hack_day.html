@@ -25,7 +25,7 @@
 		complete: function(results, foo) {
 			foo = results.data;
 			console.log(foo);
-			async_call(foo, coords_to_points);
+			async(foo, coords_to_points);
 		}
 	})
 	var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
