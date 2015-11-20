@@ -24,8 +24,8 @@
 
 		var point_geometry = new THREE.BufferGeometry();
 		var num_points = point_list.length;
-		var positions = new Float32Array( numPoints*3 )
-		var colors = new Float32Array( numPoints*3 );
+		var positions = new Float32Array( num_points*3 )
+		var colors = new Float32Array( num_points*3 );
 		for (i=0; i<point_list.length; i++){		
 			var vector = new THREE.Vector3(point_list[i][1],
 										   point_list[i][2],
