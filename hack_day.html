@@ -10,16 +10,24 @@
 <body>
 
 <script>
+	var scene = new THREE.Scene();
+	function coords_to_points(point_list){
+		console.log('coords_to_points asyncronously called');
+		var geometry = new THREE.BoxGeometry( 2, 2, 2 );
+		var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } ); 
+		var cube = new THREE.Mesh( geometry, material ); 
+		scene.add( cube );
+	}
+    
     var foo;
 	Papa.parse("http://astronomy.sussex.ac.uk/~tl229/WP8_photoz_COSMOS.csv", {
 		download: true,
 		complete: function(results, foo) {
 			foo = results.data;
 			console.log(foo);
+			async_call(foo, coords_to_points);
 		}
 	})
-	console.log(foo);
-	var scene = new THREE.Scene();
 	var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 	var renderer = new THREE.WebGLRenderer(); renderer.setSize( window.innerWidth, window.innerHeight );
 	document.body.appendChild( renderer.domElement );
