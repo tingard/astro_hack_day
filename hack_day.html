@@ -157,7 +157,7 @@
 		event.preventDefault();
 		mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 		mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-		if (!mousedown){
+		if (!mouseDown){
 			raycaster.setFromCamera( mouse, camera );
 			var intersections = raycaster.intersectObjects( scene.children );
 			intersection = ( intersections.length ) > 0 ? intersections[ 0 ] : null;
