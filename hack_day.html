@@ -13,7 +13,7 @@
     var foo;
 	Papa.parse("http://astronomy.sussex.ac.uk/~tl229/WP8_photoz_COSMOS.csv", {
 		download: true,
-		complete: function(results) {
+		complete: function(results, foo) {
 			foo = results.data;
 			console.log(foo);
 		}
