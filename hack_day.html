@@ -21,7 +21,7 @@
 		var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } ); 
 		var cube0 = new THREE.Mesh( geometry, material ); 
 		scene.add(cube0)
-		for (i=0; i<5; i++){		
+		for (i=0; i<1000; i++){		
 			var geometry = new THREE.BoxGeometry( 10, 10, 10 );
 			var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } ); 
 			var cube = new THREE.Mesh( geometry, material ); 
@@ -61,7 +61,7 @@
 	var view_angle = 45,
 		aspect = viewportWidth / viewportHeight,
 		near = 0.1,//near clip-plane
-		far = 10000;//far clip-plane
+		far = 100000;//far clip-plane
 
 
 	//----Constructors----//
