@@ -169,12 +169,16 @@
 	function draw() {
 		renderer.render(scene, camera);
 	}
-	function onMouseDown(){++mouseDown; console.log('mousedown')}
-	function onMouseUp(){--mouseDown; console.log('mouseup')}
+	function onMouseDown(){
+		++mouseDown; console.log('mousedown');
+	}
+	function onMouseUp(){
+		--mouseDown; console.log('mouseup');
+	}
 	window.addEventListener( 'resize', onWindowResize, false );
 	window.addEventListener( 'mousemove', onDocumentMouseMove, false );
-	window.addEventListener( 'mousedown', onMouseDown);
-	window.addEventListener( 'mouseup', onMouseUp);
+	window.addEventListener( 'mousedown', onMouseDown, false);
+	window.addEventListener( 'mouseup', onMouseUp, false);
 </script> 
 </head>
 <body onload="initialize();">
