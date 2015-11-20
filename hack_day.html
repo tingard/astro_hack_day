@@ -93,6 +93,9 @@
 	var renderer = new THREE.WebGLRenderer({antialias: true});
 	var scene = new THREE.Scene();
 
+	raycaster = new THREE.Raycaster();
+	raycaster.params.Points.threshold = threshold;
+
 	var camera = new THREE.PerspectiveCamera(
 	view_angle,
 	aspect,
