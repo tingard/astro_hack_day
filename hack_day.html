@@ -80,7 +80,7 @@
 		camera.updateProjectionMatrix();
 	}
 	
-	function onDocumentMouseMove(e) {       
+	function onMouseMove(e) {       
 		mouseVector.x = 2 * (e.clientX / containerWidth) - 1;
 		mouseVector.y = 1 - 2 * (e.clientY / containerHeight);
 		var vector = new THREE.Vector3(mouseVector.x, mouseVector.y, 0.5).unproject(camera);
