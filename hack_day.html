@@ -157,6 +157,10 @@
 		event.preventDefault();
 		mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 		mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+		raycaster.setFromCamera( mouse, camera );
+		var intersections = raycaster.intersectObjects( scene.children );
+		intersection = ( intersections.length ) > 0 ? intersections[ 0 ] : null;
+		console.log(intersection);
 	}
 
 	//----Draw----//
@@ -165,10 +169,6 @@
 	}
 	window.addEventListener( 'resize', onWindowResize, false );
 	window.addEventListener( 'mousemove', onDocumentMouseMove, false );
-	raycaster.setFromCamera( mouse, camera );
-	var intersections = raycaster.intersectObjects( scene.children );
-	intersection = ( intersections.length ) > 0 ? intersections[ 0 ] : null;
-	console.log(intersection);
 
 </script> 
 </head>
