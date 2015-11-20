@@ -11,6 +11,13 @@
 
 <script>
 	var scene = new THREE.Scene();
+	function async(your_function, callback) {
+		setTimeout(function() {
+			your_function();
+			if (callback) {callback();}
+		}, 0);
+	}
+
 	function coords_to_points(point_list){
 		console.log('coords_to_points asyncronously called');
 		var geometry = new THREE.BoxGeometry( 2, 2, 2 );
