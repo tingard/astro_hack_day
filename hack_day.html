@@ -157,7 +157,7 @@
 		event.preventDefault();
 		mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 		mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-		if (!mouseDown){
+		if (mouseDown){
 			raycaster.setFromCamera( mouse, camera );
 			var intersections = raycaster.intersectObjects( scene.children );
 			intersection = ( intersections.length ) > 0 ? intersections[ 0 ] : null;
@@ -171,12 +171,8 @@
 	}
 	window.addEventListener( 'resize', onWindowResize, false );
 	window.addEventListener( 'mousemove', onDocumentMouseMove, false );
-	document.body.onmousedown = function() { 
-	    ++mouseDown;
-	}
-	document.body.onmouseup = function() {
-	    --mouseDown;
-	}
+	window.addEventListener( 'mousedown', function(){++mouseDown;}, false );
+	window.addEventListener( 'mouseup', function(){--mouseDown;}, false );
 </script> 
 </head>
 <body onload="initialize();">
