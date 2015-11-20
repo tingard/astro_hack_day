@@ -162,7 +162,7 @@
 	//----Draw----//
 	function draw() {
 		raycaster.setFromCamera( mouse, camera );
-		var intersections = raycaster.intersectObjects( [pointCloud] );
+		var intersections = raycaster.intersectObjects( scene.children );
 		intersection = ( intersections.length ) > 0 ? intersections[ 0 ] : null;
 		console.log(intersection);
 		renderer.render(scene, camera);
