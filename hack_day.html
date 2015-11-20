@@ -11,9 +11,9 @@
 
 <script>
 	var scene = new THREE.Scene();
-	function async(your_function, callback) {
+	function async(arg, your_function, callback) {
 		setTimeout(function() {
-			your_function();
+			your_function(arg);
 			if (callback) {callback();}
 		}, 0);
 	}
