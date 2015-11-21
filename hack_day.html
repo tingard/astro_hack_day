@@ -168,11 +168,11 @@
 		//console.log(intersection);
 		renderer.render(scene, camera);
 	}
-	function onMouseDown(){
+	function onMouseDown(event){
 		event.preventDefault();
 		++mouseDown; console.log('mousedown');
 	}
-	function onMouseUp(){
+	function onMouseUp(event){
 		event.preventDefault();
 		--mouseDown; console.log('mouseup');
 	}
