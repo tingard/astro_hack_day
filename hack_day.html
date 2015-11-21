@@ -169,9 +169,11 @@
 		renderer.render(scene, camera);
 	}
 	function onMouseDown(){
+		event.preventDefault();
 		++mouseDown; console.log('mousedown');
 	}
 	function onMouseUp(){
+		event.preventDefault();
 		--mouseDown; console.log('mouseup');
 	}
 	window.addEventListener('resize', onWindowResize, false );
