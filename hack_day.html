@@ -162,10 +162,10 @@
 	//----Draw----//
 	function draw() {
 		console.log(mouseDown)
-		raycaster.setFromCamera( mouse, camera );
-		var intersections = raycaster.intersectObjects( scene.children );
-		intersection = ( intersections.length ) > 0 ? intersections[ 0 ] : null;
-		console.log(intersection);
+		//raycaster.setFromCamera( mouse, camera );
+		//var intersections = raycaster.intersectObjects( scene.children );
+		//intersection = ( intersections.length ) > 0 ? intersections[ 0 ] : null;
+		//console.log(intersection);
 		renderer.render(scene, camera);
 	}
 	function onMouseDown(){
@@ -176,8 +176,8 @@
 	}
 	window.addEventListener('resize', onWindowResize, false );
 	window.addEventListener('mousemove', onDocumentMouseMove, false );
-	//viewport.addEventListener('mousedown', onMouseDown, false);
-	//viewport.addEventListener('mouseup', onMouseUp, false);
+	viewport.addEventListener('mousedown', onMouseDown, false);
+	viewport.addEventListener('mouseup', onMouseUp, false);
 	window.requestAnimationFrame(draw);
 </script> 
 </head>
