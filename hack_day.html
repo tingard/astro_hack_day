@@ -177,8 +177,8 @@
 		event.preventDefault();
 		--mouseDown; console.log('mouseup');
 	}
-	document.addEventListener('resize', onWindowResize, false );
-	document.addEventListener('mousemove', onDocumentMouseMove, false );
+	window.addEventListener('resize', onWindowResize, false );
+	window.addEventListener('mousemove', onDocumentMouseMove, false );
 	document.addEventListener('mousedown', onMouseDown, false);
 	document.addEventListener('mouseup', onMouseUp, false);
 	window.requestAnimationFrame(draw);
