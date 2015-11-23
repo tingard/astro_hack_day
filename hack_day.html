@@ -172,7 +172,7 @@
     function findIntersect(bar){
         raycaster.setFromCamera( mouse, camera );
         console.log(pointCloud);
-        var intersections = raycaster.intersectObject( scene.children[4] );
+        var intersections = raycaster.intersectObject( pointCloud );
         intersection = ( intersections.length ) > 0 ? intersections[ 0 ] : null;
         if (intersection && intersection.index){
             data_entry = foo[intersection.index+1];
@@ -184,7 +184,7 @@
     }
     //----Draw----//
     function draw() {
-        if (!mouseDown && (timer.getElapsedTime()-t )> 0.5) {
+        if (!mouseDown && (timer.getElapsedTime()-t )> 10) {
             async(mouseDown, findIntersect); // mousedown only passed to satisfy async
         }
         renderer.render(scene, camera);
