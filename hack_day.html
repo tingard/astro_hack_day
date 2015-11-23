@@ -161,7 +161,7 @@
         mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
     }
     var t = 0;
-    function findIntersect(foo){
+    function findIntersect(bar){
         raycaster.setFromCamera( mouse, camera );
         var intersections = raycaster.intersectObjects( scene.children );
         intersection = ( intersections.length ) > 0 ? intersections[ 0 ] : null;
