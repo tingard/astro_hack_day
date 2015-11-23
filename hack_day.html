@@ -46,8 +46,7 @@
         point_geometry.computeBoundingBox();
         var material = new THREE.PointsMaterial( { size: pointSize, vertexColors: THREE.VertexColors } );
         var point_cloud = new THREE.Points( point_geometry, material );
-        point_cloud.scale.set( 10,10,10 );
-        point_cloud.position.set( -5,0,5 );
+        point_cloud.position.set( 0, 0, 0 );
         scene.add(point_cloud);
     }
     
