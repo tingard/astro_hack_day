@@ -167,7 +167,7 @@
             raycaster.setFromCamera( mouse, camera );
             var intersections = raycaster.intersectObjects( scene.children );
             intersection = ( intersections.length ) > 0 ? intersections[ 0 ] : null;
-            console.log(intersection? itersection : "No intersection");
+            console.log(intersection? intersection : "No intersection");
         }
         renderer.render(scene, camera);
     }
