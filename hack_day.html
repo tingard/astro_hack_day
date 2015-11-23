@@ -40,7 +40,6 @@
             colors[3*i+1] = 1.0;
             colors[3*i+2] = Math.random();
         }
-        console.log(positions);
         point_geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
         point_geometry.addAttribute( 'color', new THREE.BufferAttribute( colors, 3 ) );
         point_geometry.computeBoundingBox();
@@ -55,7 +54,6 @@
         download: true,
         complete: function(results) {
             foo = results.data;
-            console.log(foo);
             async(foo, coords_to_points);
         }
     })
@@ -194,7 +192,6 @@
     function onMouseDown(){
         //event.preventDefault();
         ++mouseDown; console.log('mousedown');
-        console.log(pointCloud);
     }
     function onMouseUp(){
         //event.preventDefault();
