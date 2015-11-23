@@ -36,9 +36,8 @@
             positions[3*i-2] = y;
             positions[3*i-1] = z;
             colors[3*i] = 1.0;
-            colors[3*i+1] = Math.max(0.0, 1.0-dist2/400000000.0);//3591217980.0);
-            console.log(colors[3*i+1]);
-            colors[3*i+2] = 0.1;
+            colors[3*i+1] = 1.0;
+            colors[3*i+2] = 1.0;
         }
         console.log(positions);
         point_geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
