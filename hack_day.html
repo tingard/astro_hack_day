@@ -28,6 +28,7 @@
         var positions = new Float32Array( num_points*3 )
         var colors = new Float32Array( num_points*3 );
         for (i=1; i<point_list.length-1; i++){
+            if (point_list[i].length < 1){ continue }
             x = point_list[i][1];
             y = point_list[i][2]
             z = point_list[i][3]
@@ -110,6 +111,13 @@
     var mouse = new THREE.Vector2();
     var intersection = null;
     var pointSize = 0.5;
+    
+    // hover-over sphere
+    var sphereGeometry = new THREE.SphereGeometry( 0.1, 32, 32 );
+    var sphereMaterial = new THREE.MeshBasicMaterial( { color: 0x9999ff, shading: THREE.FlatShading } );
+    var sphere = new THREE.Mesh( sphereGeometry, sphereMaterial );
+    scene.add( sphere );
+    
     //a cross-browser method for efficient animation, more info at:
     // http://paulirish.com/2011/requestanimationframe-for-smart-animating/
     window.requestAnimFrame = (function(){
@@ -167,6 +175,8 @@
         intersection = ( intersections.length ) > 0 ? intersections[ 0 ] : null;
         if (intersection && intersection.index){
             console.log(foo[intersection.index+1]);
+            sphere.position.copy( intersection.point )
+            sphere.scale.set( 5, 5, 5 )
             //console.log(foo[intersection.index]);
         }
         t = timer.getElapsedTime();
