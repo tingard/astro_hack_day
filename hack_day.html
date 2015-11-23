@@ -45,7 +45,7 @@
         point_geometry.addAttribute( 'color', new THREE.BufferAttribute( colors, 3 ) );
         point_geometry.computeBoundingBox();
         var material = new THREE.PointsMaterial( { size: pointSize, vertexColors: THREE.VertexColors } );
-        var pointCloud = THREE.Points( point_geometry, material );
+        var pointCloud = new THREE.Points( point_geometry, material );
         pointCloud.position.set( 0, 0, 0 );
         scene.add(pointCloud);
     }
