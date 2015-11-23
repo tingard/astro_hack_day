@@ -96,7 +96,7 @@
     var scene = new THREE.Scene();
 
     var raycaster = new THREE.Raycaster();
-    raycaster.params.Points.threshold = 1.0;
+    raycaster.params.Points.threshold = 5.0;
 
     var camera = new THREE.PerspectiveCamera(
     view_angle,
@@ -181,10 +181,10 @@
         //event.preventDefault();
         --mouseDown; console.log('mouseup');
     }
-    $('body').keypress(function(){
+    $(document).keypress(function(){
         keydown =1; console.log('key pressed');
     });
-    $('body').keyup(function(){
+    $(document).keyup(function(){
         keyup = 0; console.log('key released');
     });
     window.addEventListener('resize', onWindowResize, false );
