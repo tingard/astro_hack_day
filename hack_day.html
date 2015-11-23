@@ -57,7 +57,7 @@
         return pointcloud;
     }
     
-    var foo;
+    var foo; // variable which stores the read-in csv
     Papa.parse("http://astronomy.sussex.ac.uk/~tl229/astro_hack_day/cart_WP8_photoz_XMM_LSS.csv", {
         download: true,
         complete: function(results, foo) {
@@ -75,12 +75,12 @@
     }
 
     
-    var viewport;
 
-    //built-in three.js controls will be attached to this
-    var controls;
-    var mouseDown = 0;
-    var keydown = 0;
+    var viewport;
+    var controls;   //built-in three.js controls will be attached to this
+    var mouseDown = 0;  //holds whether a mouse button is currently pressed (can be broken I think)
+    var timer = new THREE.Clock(); // used so we don't raytrace every frame
+    
     //viewport size
     var viewportWidth = window.innerWidth;
     var viewportHeight = window.innerHeight;
@@ -161,33 +161,30 @@
         mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
         mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
     }
-
+    function findIntersect(foo){
+        raycaster.setFromCamera( mouse, camera );
+        var intersections = raycaster.intersectObjects( scene.children );
+        intersection = ( intersections.length ) > 0 ? intersections[ 0 ] : null;
+        if (intersection){
+                console.log(intersection);
+    }
     //----Draw----//
     function draw() {
-        if (!mouseDown || !keydown) {
-            raycaster.setFromCamera( mouse, camera );
-            var intersections = raycaster.intersectObjects( scene.children );
-            intersection = ( intersections.length ) > 0 ? intersections[ 0 ] : null;
-            if (intersection){
-                console.log(intersection);
-            }
+        t = timer.getDelta();
+        console.log(t)
+        if (!mouseDown && t>0.1) {
+            async(mouseDown, findIntersect()); // mousedown only passed to satisfy async
         }
         renderer.render(scene, camera);
     }
-    function onMouseDown(event){
+    function onMouseDown(){
         //event.preventDefault();
         ++mouseDown; console.log('mousedown');
     }
-    function onMouseUp(event){
+    function onMouseUp(){
         //event.preventDefault();
         --mouseDown; console.log('mouseup');
     }
-    $(document).keypress(function(){
-        keydown =1; console.log('key pressed');
-    });
-    $(document).keyup(function(){
-        keydown = 0; console.log('key released');
-    });
     window.addEventListener('resize', onWindowResize, false );
     window.addEventListener('mousemove', onDocumentMouseMove, false );
     document.addEventListener('mousedown', onMouseDown, false);
