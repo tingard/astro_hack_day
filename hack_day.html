@@ -112,7 +112,7 @@
     var pointSize = 0.2;
     
     // hover-over sphere
-    var alphaTexture = new THREE.ImageUtils.loadTexture('alpha2.png');
+    var alphaTexture = new THREE.TextureLoader('alpha2.png');
     alphaTexture.wrapS = THREE.RepeatWrapping;
     alphaTexture.wrapT = THREE.RepeatWrapping;
     var sphereGeometry = new THREE.SphereGeometry( 0.1, 32, 32 );
@@ -120,7 +120,7 @@
     var sphereMaterial = new THREE.MeshBasicMaterial( { color: 0x9999ff, shading: THREE.FlatShading } );
     var sphereMaterial = new THREE.MeshBasicMaterial( { color: 0x9999ff, 
                                                         shading: THREE.FlatShading, 
-                                                        map: alphaTexture, 
+                                                        alphaMap: alphaTexture, 
                                                         transparent: true } );
     var sphere = new THREE.Mesh( sphereGeometry, sphereMaterial );
     scene.add( sphere );
@@ -185,7 +185,7 @@
             sphere.position.set(data_entry[1],data_entry[2],data_entry[3]);
             console.log(sphere.position);
             console.log(intersection.point);
-            sphere.scale.set( 1, 1, 1 );
+            sphere.scale.set(4, 4, 4);
             //console.log(foo[intersection.index]);
         }
         t = timer.getElapsedTime();
