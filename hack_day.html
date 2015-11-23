@@ -165,6 +165,12 @@
         mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
         mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
     }
+    function getDisplay(data_row){
+        out = '';
+        for (i=0; i<data_row.length; i++) {
+            out += data_row[i]+"<br>";
+        }
+        return out;
     var t = 0;
     function findIntersect(bar){
         raycaster.setFromCamera( mouse, camera );
@@ -174,6 +180,7 @@
             data_entry = foo[intersection.index+1];
             sphere.position.set(data_entry[1],data_entry[2],data_entry[3]);
             sphere.scale.set(4, 4, 4);
+            $("#displayBox").html(getDisplay(data_entry));
             //console.log(foo[intersection.index]);
         } else {
             sphere.position.set(0,0,0);
