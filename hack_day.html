@@ -164,7 +164,7 @@
 
     //----Draw----//
     function draw() {
-        if (!mouseDown || keydown) {
+        if (!mouseDown || !keydown) {
             raycaster.setFromCamera( mouse, camera );
             var intersections = raycaster.intersectObjects( scene.children );
             intersection = ( intersections.length ) > 0 ? intersections[ 0 ] : null;
