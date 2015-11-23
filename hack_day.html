@@ -174,7 +174,7 @@
     //----Draw----//
     function draw() {
         if (!mouseDown && (timer.getElapsedTime()-t )> 0.2) {
-            async(mouseDown, findIntersect()); // mousedown only passed to satisfy async
+            async(mouseDown, findIntersect); // mousedown only passed to satisfy async
         }
         renderer.render(scene, camera);
     }
