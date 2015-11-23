@@ -109,7 +109,7 @@
     var pointCloud;
     var mouse = new THREE.Vector2();
     var intersection = null;
-    var pointSize = 1.0;		
+    var pointSize = 0.5;
     //a cross-browser method for efficient animation, more info at:
     // http://paulirish.com/2011/requestanimationframe-for-smart-animating/
     window.requestAnimFrame = (function(){
@@ -166,7 +166,7 @@
         var intersections = raycaster.intersectObjects( scene.children );
         intersection = ( intersections.length ) > 0 ? intersections[ 0 ] : null;
         if (intersection){
-                console.log(intersection);
+                console.log(intersection.index ? intersection.index:'Some Obj');
         }
         t = timer.getElapsedTime();
     }
