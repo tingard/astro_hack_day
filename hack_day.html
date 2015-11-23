@@ -179,12 +179,16 @@
             sphere.position.set(data_entry[1],data_entry[2],data_entry[3]);
             sphere.scale.set(4, 4, 4);
             //console.log(foo[intersection.index]);
+        } else {
+            sphere.position.set(0,0,0);
+            sphere.scale.set(.1, .1, .1);
+
         }
         t = timer.getElapsedTime();
     }
     //----Draw----//
     function draw() {
-        if (!mouseDown && (timer.getElapsedTime()-t )> 1) {
+        if (!mouseDown && (timer.getElapsedTime()-t )> .3) {
             async(mouseDown, findIntersect); // mousedown only passed to satisfy async
         }
         renderer.render(scene, camera);
