@@ -166,7 +166,7 @@
         var intersections = raycaster.intersectObjects( scene.children );
         intersection = ( intersections.length ) > 0 ? intersections[ 0 ] : null;
         if (intersection && intersection.index){
-            console.log(foo[0]);
+            console.log(foo[intersection.index+1]);
             //console.log(foo[intersection.index]);
         }
         t = timer.getElapsedTime();
