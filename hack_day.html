@@ -171,7 +171,8 @@
     var t = 0;
     function findIntersect(bar){
         raycaster.setFromCamera( mouse, camera );
-        var intersections = raycaster.intersectObjects( [pointCloud] );
+        console.log(scene.children);
+        var intersections = raycaster.intersectObjects( scene.children );
         intersection = ( intersections.length ) > 0 ? intersections[ 0 ] : null;
         if (intersection && intersection.index){
             data_entry = foo[intersection.index+1];
