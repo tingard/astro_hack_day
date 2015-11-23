@@ -110,8 +110,7 @@
     alphaTexture.wrapT = THREE.RepeatWrapping;
     var sphereGeometry = new THREE.SphereGeometry( 0.1, 32, 32 );
     var sphereGeometry = new THREE.SphereGeometry( 0.1, 32, 32 );
-    var sphereMaterial = new THREE.MeshBasicMaterial( { color: 0x9999ff, shading: THREE.FlatShading } );
-    var sphereMaterial = new THREE.MeshBasicMaterial( { color: 0x9999ff, 
+    var sphereMaterial = new THREE.MeshBasicMaterial( { color: 0xccccff, 
                                                         shading: THREE.FlatShading, 
                                                         alphaMap: alphaTexture, 
                                                         transparent: true } );
@@ -171,7 +170,6 @@
     var t = 0;
     function findIntersect(bar){
         raycaster.setFromCamera( mouse, camera );
-        console.log(pointCloud);
         var intersections = raycaster.intersectObject( pointCloud );
         intersection = ( intersections.length ) > 0 ? intersections[ 0 ] : null;
         if (intersection && intersection.index){
