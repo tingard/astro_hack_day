@@ -161,6 +161,7 @@
         mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
         mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
     }
+    var t = 0;
     function findIntersect(foo){
         raycaster.setFromCamera( mouse, camera );
         var intersections = raycaster.intersectObjects( scene.children );
@@ -168,12 +169,11 @@
         if (intersection){
                 console.log(intersection);
         }
+        t = timer.getElapsedTime();
     }
     //----Draw----//
     function draw() {
-        t = timer.getDelta();
-        console.log(t)
-        if (!mouseDown && t>0.1) {
+        if (!mouseDown && (timer.getElapsedTime()-t )> 0.2) {
             async(mouseDown, findIntersect()); // mousedown only passed to satisfy async
         }
         renderer.render(scene, camera);
