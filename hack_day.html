@@ -95,9 +95,9 @@
     //----Constructors----//
     var renderer = new THREE.WebGLRenderer({antialias: true});
     var scene = new THREE.Scene();
-    scene.fog = new THREE.Fog( 0xff0101, 100, 30000 );
+    scene.fog = new THREE.Fog( 0xff0101, 100, 10000 );
     var raycaster = new THREE.Raycaster();
-    raycaster.params.Points.threshold = 2.0;
+    raycaster.params.Points.threshold = 0.8;
 
     var camera = new THREE.PerspectiveCamera(
     view_angle,
@@ -141,7 +141,7 @@
         //attaches fly controls to the camera
         controls = new THREE.FlyControls( camera );
         //camera control properties
-        controls.movementSpeed = 4;
+        controls.movementSpeed = 1;
         controls.domElement = viewport;
         controls.rollSpeed = 0.01;
         controls.autoForward = false;
