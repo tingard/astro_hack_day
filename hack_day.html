@@ -97,7 +97,7 @@
     var scene = new THREE.Scene();
     scene.fog = new THREE.Fog( 0xff0101, 100, 10000 );
     var raycaster = new THREE.Raycaster();
-    raycaster.params.Points.threshold = 0.8;
+    raycaster.params.Points.threshold = 0.2;
 
     var camera = new THREE.PerspectiveCamera(
     view_angle,
@@ -109,7 +109,7 @@
     var pointCloud;
     var mouse = new THREE.Vector2();
     var intersection = null;
-    var pointSize = 0.5;
+    var pointSize = 0.2;
     
     // hover-over sphere
     var sphereGeometry = new THREE.SphereGeometry( 0.1, 32, 32 );
