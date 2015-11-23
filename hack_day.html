@@ -97,7 +97,7 @@
     var scene = new THREE.Scene();
     scene.fog = new THREE.Fog( 0xff0101, 100, 30000 );
     var raycaster = new THREE.Raycaster();
-    raycaster.params.Points.threshold = 5.0;
+    raycaster.params.Points.threshold = 2.0;
 
     var camera = new THREE.PerspectiveCamera(
     view_angle,
@@ -141,7 +141,7 @@
         //attaches fly controls to the camera
         controls = new THREE.FlyControls( camera );
         //camera control properties
-        controls.movementSpeed = 10;
+        controls.movementSpeed = 4;
         controls.domElement = viewport;
         controls.rollSpeed = 0.01;
         controls.autoForward = false;
