@@ -95,7 +95,7 @@
     //----Constructors----//
     var renderer = new THREE.WebGLRenderer({antialias: true});
     var scene = new THREE.Scene();
-    scene.fog = new THREE.Fog( 0x000000, 10000, 100000 );
+    scene.fog = new THREE.Fog( 0x000000, 10, 1000 );
     var raycaster = new THREE.Raycaster();
     raycaster.params.Points.threshold = 5.0;
 
