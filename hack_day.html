@@ -32,11 +32,12 @@
             y = point_list[i][2]
             z = point_list[i][3]
             dist2 = Math.pow(x,2)+Math.pow(y,2)+Math.pow(z,2);
+            console.log(dist2)-3591217980.0
             positions[3*i-3] = x;
             positions[3*i-2] = y;
             positions[3*i-1] = z;
             colors[3*i] = 1.0;
-            colors[3*i+1] = Math.max(0.0, 1.0-dist2/3591217980);
+            colors[3*i+1] = Math.max(0.0, 1.0-dist2/3591217980.0);
             colors[3*i+2] = 0.1;
         }
         console.log(positions);
