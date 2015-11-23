@@ -184,7 +184,7 @@
     }
     //----Draw----//
     function draw() {
-        if (!mouseDown && (timer.getElapsedTime()-t )> 10) {
+        if (!mouseDown && (timer.getElapsedTime()-t )> 1) {
             async(mouseDown, findIntersect); // mousedown only passed to satisfy async
         }
         renderer.render(scene, camera);
