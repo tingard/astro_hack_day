@@ -165,9 +165,9 @@
         raycaster.setFromCamera( mouse, camera );
         var intersections = raycaster.intersectObjects( scene.children );
         intersection = ( intersections.length ) > 0 ? intersections[ 0 ] : null;
-        console.log(foo.length);
         if (intersection && intersection.index){
-                //console.log(foo[intersection.index]);
+            console.log(foo);
+            //console.log(foo[intersection.index]);
         }
         t = timer.getElapsedTime();
     }
