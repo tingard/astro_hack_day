@@ -164,7 +164,7 @@
 
     //----Draw----//
     function draw() {
-        if (!mouseDown) {
+        if (!mouseDown || keydown) {
             raycaster.setFromCamera( mouse, camera );
             var intersections = raycaster.intersectObjects( scene.children );
             intersection = ( intersections.length ) > 0 ? intersections[ 0 ] : null;
@@ -186,7 +186,7 @@
         keydown =1; console.log('key pressed');
     });
     $(document).keyup(function(){
-        keyup = 0; console.log('key released');
+        keydown = 0; console.log('key released');
     });
     window.addEventListener('resize', onWindowResize, false );
     window.addEventListener('mousemove', onDocumentMouseMove, false );
