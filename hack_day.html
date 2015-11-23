@@ -167,7 +167,9 @@
             raycaster.setFromCamera( mouse, camera );
             var intersections = raycaster.intersectObjects( scene.children );
             intersection = ( intersections.length ) > 0 ? intersections[ 0 ] : null;
-            console.log(intersection? intersection : "No intersection");
+            if (intersection){
+                console.log(intersection);
+            }
         }
         renderer.render(scene, camera);
     }
@@ -179,12 +181,12 @@
         //event.preventDefault();
         --mouseDown; console.log('mouseup');
     }
-    /*document.keydown(function(){
-        keydown =1;
+    $('body').keypress(function(){
+        keydown =1; console.log('key pressed');
     });
-    document.keyup(function(){
-        keyup = 0;
-    });*/
+    $('body').keyup(function(){
+        keyup = 0; console.log('key released');
+    });
     window.addEventListener('resize', onWindowResize, false );
     window.addEventListener('mousemove', onDocumentMouseMove, false );
     document.addEventListener('mousedown', onMouseDown, false);
