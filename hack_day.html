@@ -171,13 +171,11 @@
     var t = 0;
     function findIntersect(bar){
         raycaster.setFromCamera( mouse, camera );
-        var intersections = raycaster.intersectObjects( scene.children );
+        var intersections = raycaster.intersectObjects( pointCloud );
         intersection = ( intersections.length ) > 0 ? intersections[ 0 ] : null;
         if (intersection && intersection.index){
             data_entry = foo[intersection.index+1];
             sphere.position.set(data_entry[1],data_entry[2],data_entry[3]);
-            console.log(sphere.position);
-            console.log(intersection.point);
             sphere.scale.set(4, 4, 4);
             //console.log(foo[intersection.index]);
         }
