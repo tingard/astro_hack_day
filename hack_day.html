@@ -75,7 +75,7 @@
         point_geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
         point_geometry.addAttribute( 'customColor', new THREE.BufferAttribute( colors, 3 ) );
         point_geometry.computeBoundingBox();
-        var material = new THREE.PointsMaterial( { size: pointSize, vertexColors: THREE.VertexColors } );
+        var material = new THREE.PointsMaterial( { size: 5000, vertexColors: THREE.VertexColors } );
         pointCloud = new THREE.Points( point_geometry, shaderMaterial );
         pointCloud.position.set( 0, 0, 0 );
         scene.add(pointCloud);
