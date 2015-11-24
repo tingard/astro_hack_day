@@ -189,9 +189,9 @@
         $.ajax({                                      
             url: 'flandersSearch.php',       
             type: "POST",
-            data: {address: 'http://www.google.com'},
+            data: {address: 'http://flandersfinder.herokuapp.com/?ra=53.084&de=-27.873'},
             success: function(response){
-            $("#galaxy_info_box").html(response.text);
+                console.log(response.text);
             }
         });
     }
