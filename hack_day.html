@@ -194,21 +194,25 @@
         return out;
     }
     var t = 0;
+    var prevIndex = 0;
     function findIntersect(bar){
         raycaster.setFromCamera( mouse, camera );
         var intersections = raycaster.intersectObject( pointCloud );
         intersection = ( intersections.length ) > 0 ? intersections[ 0 ] : null;
+        var sizes = point_geometry.attributes.size.array;
         if (intersection && intersection.index){
-            var sizes = point_geometry.attributes.size.array;
             console.log(sizes[intersection.index]);
-            sizes[intersection.index] = 10.0;
+            sizes[intersection.index] = 5.0;
+            sizes[prevIndex] = 1.0;
             point_geometry.attributes.size.needsUpdate = true;
             data_entry = foo[intersection.index+1];
-            sphere.position.set(data_entry[1],data_entry[2],data_entry[3]);
-            sphere.scale.set(4, 4, 4);
+            //sphere.position.set(data_entry[1],data_entry[2],data_entry[3]);
+            //sphere.scale.set(4, 4, 4);
             $("#displayBox").html(getDisplay(data_entry));
             //console.log(foo[intersection.index]);
+            prevIndex = intersection.index; 
         } else {
+            sizes[prevIndex] = 1.0;
             sphere.position.set(0,0,0);
             sphere.scale.set(.1, .1, .1);
         }
