@@ -43,7 +43,7 @@
         var cube0 = new THREE.Mesh( geometry, material ); 
         scene.add(cube0)
 
-        var point_geometry = new THREE.BufferGeometry();
+        point_geometry = new THREE.BufferGeometry(); // no new var here
         var num_points = point_list.length-1;
         var positions = new Float32Array( num_points*3 )
         var colors = new Float32Array( num_points*3 );
@@ -107,8 +107,7 @@
     var mouseDown = 0;  //holds whether a mouse button is currently pressed (can be broken I think)
     var timer = new THREE.Clock(); // used so we don't raytrace every frame
     
-    //viewport size
-    var viewportWidth = window.innerWidth;
+    var viewportWidth = window.innerWidth; // define viewport size
     var viewportHeight = window.innerHeight;
 
     //camera attributes
@@ -130,6 +129,7 @@
     var camera = new THREE.PerspectiveCamera(view_angle, aspect, near, far);
 
     var pointCloud; // will store THREE geometry of point cloud
+    var point_geometry, 
     var mouse = new THREE.Vector2(); // used to store x & y positions of mouse for raytracing
     var intersection = null; // placeholder for raytracing later
     var pointSize = 1; // size of particles
@@ -199,9 +199,12 @@
         var intersections = raycaster.intersectObject( pointCloud );
         intersection = ( intersections.length ) > 0 ? intersections[ 0 ] : null;
         if (intersection && intersection.index){
+            var sizes = point_geometry.attributes.size.array;
+            sizes[intersection.index] = 1.0;
+            point_geometry.attributes.size.needsUpdate;
             data_entry = foo[intersection.index+1];
-            sphere.position.set(data_entry[1],data_entry[2],data_entry[3]);
-            sphere.scale.set(4, 4, 4);
+            //sphere.position.set(data_entry[1],data_entry[2],data_entry[3]);
+            //sphere.scale.set(4, 4, 4);
             $("#displayBox").html(getDisplay(data_entry));
             //console.log(foo[intersection.index]);
         } else {
