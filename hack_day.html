@@ -193,7 +193,9 @@
     var prevIndex = 0;
     function findIntersect(bar){
         // check if point Cloud defined?
-        if (!pointCloud){ return }
+        if (!pointCloud){ 
+            $("#displayBox").html('Loading data, please wait...');
+        }
         raycaster.setFromCamera( mouse, camera );
         var intersections = raycaster.intersectObject( pointCloud );
         intersection = ( intersections.length ) > 0 ? intersections[ 0 ] : null;
