@@ -195,6 +195,7 @@
         // check if point Cloud defined?
         if (!pointCloud){ 
             $("#displayBox").html('Loading data, please wait...');
+            return;
         }
         raycaster.setFromCamera( mouse, camera );
         var intersections = raycaster.intersectObject( pointCloud );
@@ -225,7 +226,7 @@
     window.addEventListener('mousemove', onDocumentMouseMove, false );
     document.addEventListener('mousedown', onMouseDown, false);
     document.addEventListener('mouseup', onMouseUp, false);
-    window.requestAnimationFrame(draw);
+    //window.requestAnimationFrame(draw);
 </script> 
 </head>
 <body onload="initialize();">
