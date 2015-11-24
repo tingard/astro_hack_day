@@ -15,7 +15,7 @@
     void main() {
         vColor = customColor;
         vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
-        gl_PointSize = size * ( 300.0 / length( mvPosition.xyz ) );
+        gl_PointSize = size * ( 30000.0 / length( mvPosition.xyz ) );
         gl_Position = projectionMatrix * mvPosition;
     }
 </script>
@@ -62,7 +62,7 @@
         }
         uniforms = {
             color:     { type: "c", value: new THREE.Color( 0xffffff ) },
-            texture:   { type: "t", value: THREE.ImageUtils.loadTexture( "star1.png" ) }
+            texture:   { type: "t", value: THREE.ImageUtils.loadTexture( "spark_original.png" ) }
         };
         var shaderMaterial = new THREE.ShaderMaterial( {
             uniforms:       uniforms,
@@ -129,7 +129,7 @@
     var pointCloud; // will store THREE geometry of point cloud
     var mouse = new THREE.Vector2(); // used to store x & y positions of mouse for raytracing
     var intersection = null; // placeholder for raytracing later
-    var pointSize = 200; // size of particles
+    var pointSize = 0.2; // size of particles
     // define and add the hover-over sphere
     var alphaTexture = new THREE.ImageUtils.loadTexture('alpha2.png');
     alphaTexture.wrapS = THREE.RepeatWrapping;
