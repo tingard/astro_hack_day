@@ -60,7 +60,7 @@
             colors[3*i] = 1.0;
             colors[3*i+1] = 1.0;
             colors[3*i+2] = Math.random();
-            sizes[i]=20;
+            sizes[i]=pointSize;
         }
         uniforms = {
             color:     { type: "c", value: new THREE.Color( 0xffffff ) },
@@ -132,7 +132,7 @@
     var pointCloud; // will store THREE geometry of point cloud
     var mouse = new THREE.Vector2(); // used to store x & y positions of mouse for raytracing
     var intersection = null; // placeholder for raytracing later
-    var pointSize = 0.2; // size of particles
+    var pointSize = 1; // size of particles
     // define and add the hover-over sphere
     var alphaTexture = new THREE.ImageUtils.loadTexture('alpha2.png');
     alphaTexture.wrapS = THREE.RepeatWrapping;
