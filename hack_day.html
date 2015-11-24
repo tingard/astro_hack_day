@@ -190,10 +190,10 @@
         return out;
     }
     var t = 0;
+    var timeDelta = 0;
     var prevIndex = 0;
     function findIntersect(bar){
-        // check if point Cloud defined?
-        if (!pointCloud){ 
+        if (!pointCloud){  // if the data hasn't loaded yet, let the user know
             $("#displayBox").html('Loading data, please wait...');
             return;
         }
@@ -207,17 +207,17 @@
             data_entry = foo[intersection.index+1];
             $("#displayBox").html(getDisplay(data_entry));
             if (prevIndex != intersection.index){
-            sizes[prevIndex] = 1.0;
+                sizes[prevIndex] = 1.0;
             }
             prevIndex = intersection.index;
         } else {
             sizes[prevIndex] = 1.0;
         }
-        t = timer.getElapsedTime();
+        timeDelta = timer.getElapsedTime();
     }
     //----Draw----//
     function draw() {
-        if (!mouseDown && (timer.getElapsedTime()-t )> .3) {
+        if (!mouseDown && (timer.getElapsedTime()-timeDelta )> .3) {
             async(mouseDown, findIntersect); // mousedown only passed to satisfy async
         }
         renderer.render(scene, camera);
