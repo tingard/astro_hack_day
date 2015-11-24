@@ -29,13 +29,33 @@
     }
 </script>
 <script>
+    var viewport;
+    var controls;   //built-in three.js controls will be attached to this
+    var mouseDown = 0;  //holds whether a mouse button is currently pressed (can be broken I think)
+    var intersection = null; // placeholder for raytracing later
+    var pointSize = 1; // size of particles
+    var prevIndex = 0; // used to store index of previously highligted galaxy
+    var timer = new THREE.Clock(); // used so we don't raytrace every frame
+    var timeDelta = 0; // used to limit number of raytraces per second
+    var mouse = new THREE.Vector2(); // used to store x & y positions of mouse for raytracing
+    
+    // variables for basic scene construction
+    var renderer, scene, raycaster, camera;
+
+    var viewportWidth = window.innerWidth; // define viewport size
+    var viewportHeight = window.innerHeight;
+    var view_angle;     //camera attributes
+    
+    var pointCloud; // will store THREE geometry of point cloud
+    var point_geometry; 
+    var foo; // variable which stores the read-in csv
+    
     function async(arg, your_function, callback) {
         setTimeout(function() {
             your_function(arg);
             if (callback) {callback();}
         }, 0);
     }
-
     function coords_to_points(point_list){
         console.log('coords_to_points asyncronously called');
         var geometry = new THREE.BoxGeometry( .5, .5, .5 );
@@ -84,67 +104,20 @@
         scene.add(pointCloud);
     }
     
-    var foo; // variable which stores the read-in csv
-    Papa.parse("http://astronomy.sussex.ac.uk/~tl229/astro_hack_day/cart_WP8_photoz_XMM_LSS.csv", {
-        download: true,
-        complete: function(results) {
-            foo = results.data;
-            async(foo, coords_to_points);
-        }
-    })
-    
     function onWindowResize( event ) {
         //SCREEN_HEIGHT = window.innerHeight;
         //SCREEN_WIDTH  = window.innerWidth;
         renderer.setSize(viewportWidth, viewportHeight);
         camera.updateProjectionMatrix();
     }
+    function onDocumentMouseMove( event ) {
+        event.preventDefault();
+        mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+        mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+    }
+    function onMouseDown(){ ++mouseDown; }
+    function onMouseUp(){ --mouseDown; }
 
-    
-
-    var viewport;
-    var controls;   //built-in three.js controls will be attached to this
-    var mouseDown = 0;  //holds whether a mouse button is currently pressed (can be broken I think)
-    var timer = new THREE.Clock(); // used so we don't raytrace every frame
-    
-    var viewportWidth = window.innerWidth; // define viewport size
-    var viewportHeight = window.innerHeight;
-
-    //camera attributes
-    var view_angle = 45,
-        aspect = viewportWidth / viewportHeight,
-        near = 0.1,//near clip-plane
-        far = 100000;//far clip-plane
-
-
-    //----Constructors----//
-    var renderer = new THREE.WebGLRenderer({antialias: true});
-
-    var scene = new THREE.Scene();
-    scene.fog = new THREE.Fog( 0xff0101, 100, 10000 );
-
-    var raycaster = new THREE.Raycaster();
-    raycaster.params.Points.threshold = 0.2;
-    
-    var camera = new THREE.PerspectiveCamera(view_angle, aspect, near, far);
-
-    var pointCloud; // will store THREE geometry of point cloud
-    var point_geometry; 
-    var mouse = new THREE.Vector2(); // used to store x & y positions of mouse for raytracing
-    var intersection = null; // placeholder for raytracing later
-    var pointSize = 1; // size of particles
-    // define and add the hover-over sphere
-    var alphaTexture = new THREE.ImageUtils.loadTexture('alpha2.png');
-    alphaTexture.wrapS = THREE.RepeatWrapping;
-    alphaTexture.wrapT = THREE.RepeatWrapping;
-    var sphereGeometry = new THREE.SphereGeometry( 0.1, 32, 32 );
-    var sphereGeometry = new THREE.SphereGeometry( 0.1, 32, 32 );
-    var sphereMaterial = new THREE.MeshBasicMaterial( { color: 0xccccff, 
-                                                        shading: THREE.FlatShading, 
-                                                        alphaMap: alphaTexture, 
-                                                        transparent: true } );
-    var sphere = new THREE.Mesh( sphereGeometry, sphereMaterial );
-    scene.add( sphere );
     //a cross-browser method for efficient animation, more info at:
     // http://paulirish.com/2011/requestanimationframe-for-smart-animating/
     window.requestAnimFrame = (function(){ // this is witchcraft
@@ -157,9 +130,26 @@
                 window.setTimeout(callback, 1000 / 60);
               };
     })();
-    //----Initialization----//
-    function initialize()
-    {
+    
+    function initialize(){
+        Papa.parse("http://astronomy.sussex.ac.uk/~tl229/astro_hack_day/cart_WP8_photoz_XMM_LSS.csv", {
+            download: true,
+            complete: function(results) {
+                foo = results.data;
+                async(foo, coords_to_points);
+            }
+        })
+        view_angle = 45,
+            aspect = viewportWidth / viewportHeight,
+            near = 0.1,//near clip-plane
+            far = 100000;//far clip-plane
+        scene = new THREE.Scene();
+        scene.fog = new THREE.Fog( 0xff0101, 100, 10000 );
+        renderer = new THREE.WebGLRenderer({antialias: true});
+        raycaster = new THREE.Raycaster();
+        raycaster.params.Points.threshold = 0.2;
+        camera = new THREE.PerspectiveCamera(view_angle, aspect, near, far);
+        
         viewport = document.getElementById('viewport');  // find where the visualisation takes place
         renderer.setSize(viewportWidth, viewportHeight); // set the size of our scene
         viewport.appendChild(renderer.domElement); // add the renderer to the viewport
@@ -175,16 +165,10 @@
         scene.add(camera); // add the camera to the scene
         update(); // call update to start program loop
     }
-    //----Update----//
     function update() {
         requestAnimFrame( update ); //requests the browser to call update at it's own pace
         controls.update( 1 ); //update controls
         draw(); // draw the scene
-    }
-    function onDocumentMouseMove( event ) {
-        event.preventDefault();
-        mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-        mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
     }
     function getDisplay(data_row){
         out = '';
@@ -193,8 +177,6 @@
         }
         return out;
     }
-    var t = 0;
-    var prevIndex = 0;
     function findIntersect(bar){
         raycaster.setFromCamera( mouse, camera );
         var intersections = raycaster.intersectObject( pointCloud );
@@ -205,8 +187,6 @@
             sizes[intersection.index] = 5.0;
             point_geometry.attributes.size.needsUpdate = true;
             data_entry = foo[intersection.index+1];
-            //sphere.position.set(data_entry[1],data_entry[2],data_entry[3]);
-            //sphere.scale.set(4, 4, 4);
             $("#displayBox").html(getDisplay(data_entry));
             //console.log(foo[intersection.index]);
             if (prevIndex != intersection.index){
@@ -215,21 +195,17 @@
             }
         } else {
             sizes[prevIndex] = 1.0;
-            sphere.position.set(0,0,0);
-            sphere.scale.set(.1, .1, .1);
         }
-        t = timer.getElapsedTime();
+        timeDelta = timer.getElapsedTime();
     }
     //----Draw----//
     function draw() {
-        if (!mouseDown && (timer.getElapsedTime()-t )> .3) {
+        if (!mouseDown && (timer.getElapsedTime()-timeDelta)> .3) {
             async(mouseDown, findIntersect); // mousedown only passed to satisfy async
         }
         renderer.render(scene, camera);
     }
-    function onMouseDown(){ ++mouseDown; }
-    function onMouseUp(){ --mouseDown; }
-    window.addEventListener('resize', onWindowResize, false );
+    window.addEventListener('resize', onWindowRegsize, false );
     window.addEventListener('mousemove', onDocumentMouseMove, false );
     document.addEventListener('mousedown', onMouseDown, false);
     document.addEventListener('mouseup', onMouseUp, false);
