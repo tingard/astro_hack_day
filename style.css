@@ -1,11 +1,14 @@
 #displayBox {
     position:absolute;
-    width:10%;
-    height:30%;
+    width:100px;
+    height:300px;
     top:80px;
-    right:40%;
+    right:50%;
     border:3px solid #ffffff;
     color:#99f;
+    vertical-align:middle;
+    text-align:center;
+    margin:0 0 0 -100px;
 }
 body { margin: 0; } 
 
