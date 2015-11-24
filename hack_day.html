@@ -209,7 +209,10 @@
             //sphere.scale.set(4, 4, 4);
             $("#displayBox").html(getDisplay(data_entry));
             //console.log(foo[intersection.index]);
-            prevIndex = intersection.index;
+            if (prevIndex != intersection.index){
+                sizes[prevIndex] = 1.0;]
+                prevIndex = intersection.index;
+            }
         } else {
             sizes[prevIndex] = 1.0;
             sphere.position.set(0,0,0);
