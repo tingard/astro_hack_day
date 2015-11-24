@@ -201,10 +201,11 @@
         if (intersection && intersection.index){
             var sizes = point_geometry.attributes.size.array;
             sizes[intersection.index] = 1.0;
-            point_geometry.attributes.size.needsUpdate;
+            console.log(sizes.length);
+            point_geometry.attributes.size.needsUpdate = true;
             data_entry = foo[intersection.index+1];
-            //sphere.position.set(data_entry[1],data_entry[2],data_entry[3]);
-            //sphere.scale.set(4, 4, 4);
+            sphere.position.set(data_entry[1],data_entry[2],data_entry[3]);
+            sphere.scale.set(4, 4, 4);
             $("#displayBox").html(getDisplay(data_entry));
             //console.log(foo[intersection.index]);
         } else {
