@@ -1,6 +1,6 @@
 #displayBox {
     position:absolute;
-    width:100px;
+    width:500px;
     height:300px;
     top:80px;
     right:50%;
@@ -8,7 +8,7 @@
     color:#99f;
     vertical-align:middle;
     text-align:center;
-    margin:0 0 0 -100px;
+    margin:0 0 0 -250px;
 }
 body { margin: 0; } 
 
