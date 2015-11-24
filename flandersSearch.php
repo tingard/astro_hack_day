@@ -1,1 +1,1 @@
-echo file_get_contents($_POST['address']);
+<?php echo file_get_contents($_POST['address']); ?>
