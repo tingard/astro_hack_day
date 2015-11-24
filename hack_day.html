@@ -122,28 +122,28 @@
     }
 
     //camera attributes
-    var view_angle = 45,
+    view_angle = 45,
         aspect = viewportWidth / viewportHeight,
         near = 0.1,//near clip-plane
         far = 100000;//far clip-plane
 
 
     //----Constructors----//
-    var renderer = new THREE.WebGLRenderer({antialias: true});
+    renderer = new THREE.WebGLRenderer({antialias: true});
 
-    var scene = new THREE.Scene();
+    scene = new THREE.Scene();
     scene.fog = new THREE.Fog( 0xff0101, 100, 10000 );
 
-    var raycaster = new THREE.Raycaster();
+    raycaster = new THREE.Raycaster();
     raycaster.params.Points.threshold = 0.2;
     
-    var camera = new THREE.PerspectiveCamera(view_angle, aspect, near, far);
+    camera = new THREE.PerspectiveCamera(view_angle, aspect, near, far);
 
-    var pointCloud; // will store THREE geometry of point cloud
-    var point_geometry; 
-    var mouse = new THREE.Vector2(); // used to store x & y positions of mouse for raytracing
-    var intersection = null; // placeholder for raytracing later
-    var pointSize = 1; // size of particles
+    pointCloud; // will store THREE geometry of point cloud
+    point_geometry; 
+    mouse = new THREE.Vector2(); // used to store x & y positions of mouse for raytracing
+    intersection = null; // placeholder for raytracing later
+    pointSize = 1; // size of particles
 
     //a cross-browser method for efficient animation, more info at:
     // http://paulirish.com/2011/requestanimationframe-for-smart-animating/
