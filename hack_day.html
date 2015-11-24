@@ -122,16 +122,6 @@
     }
 
     //camera attributes
-    view_angle = 45,
-        aspect = viewportWidth / viewportHeight,
-        near = 0.1,//near clip-plane
-        far = 100000;//far clip-plane
-
-    pointCloud; // will store THREE geometry of point cloud
-    point_geometry; 
-    mouse = new THREE.Vector2(); // used to store x & y positions of mouse for raytracing
-    intersection = null; // placeholder for raytracing later
-    pointSize = 1; // size of particles
 
     //a cross-browser method for efficient animation, more info at:
     // http://paulirish.com/2011/requestanimationframe-for-smart-animating/
@@ -156,6 +146,14 @@
         raycaster.params.Points.threshold = 0.2;
     
         camera = new THREE.PerspectiveCamera(view_angle, aspect, near, far);
+        view_angle = 45,
+            aspect = viewportWidth / viewportHeight,
+            near = 0.1,//near clip-plane
+            far = 100000;//far clip-plane
+
+        mouse = new THREE.Vector2(); // used to store x & y positions of mouse for raytracing
+        intersection = null; // placeholder for raytracing later
+        pointSize = 1; // size of particles
 
         viewport = document.getElementById('viewport');  // find where the visualisation takes place
         renderer.setSize(viewportWidth, viewportHeight); // set the size of our scene
