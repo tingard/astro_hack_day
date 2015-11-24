@@ -187,13 +187,14 @@
     function getDisplay(data_row){
         out = '';
         $.ajax({                                      
-            url: 'http://flandersfinder.herokuapp.com/?ra=53.084&de=-27.873',
-            type: "GET"
-        }).done(function( msg ) {
-            $("#galaxy_info_box").html(out);
+            url: 'flandersSearch.php',       
+            type: "POST",
+            data: {address: 'http://www.google.com'},
+            success: function(response){
+            $("#galaxy_info_box").html(response.text);
+            }
         });
     }
-    var t = 0;
     var timeDelta = 0;
     var prevIndex = 0;
     function findIntersect(bar){
