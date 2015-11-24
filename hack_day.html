@@ -44,7 +44,7 @@
 
     var viewportWidth = window.innerWidth; // define viewport size
     var viewportHeight = window.innerHeight;
-    var view_angle;     //camera attributes
+    var view_angle, aspect, near, far;     //camera attributes
     
     var pointCloud; // will store THREE geometry of point cloud
     var point_geometry; 
@@ -145,11 +145,11 @@
         raycaster = new THREE.Raycaster();
         raycaster.params.Points.threshold = 0.2;
     
-        camera = new THREE.PerspectiveCamera(view_angle, aspect, near, far);
         view_angle = 45,
             aspect = viewportWidth / viewportHeight,
             near = 0.1,//near clip-plane
             far = 100000;//far clip-plane
+        camera = new THREE.PerspectiveCamera(view_angle, aspect, near, far);
 
         mouse = new THREE.Vector2(); // used to store x & y positions of mouse for raytracing
         intersection = null; // placeholder for raytracing later
