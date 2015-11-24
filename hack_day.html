@@ -102,7 +102,7 @@
         pointCloud = new THREE.Points( point_geometry, shaderMaterial );
         pointCloud.position.set( 0, 0, 0 );
         scene.add(pointCloud);
-        $("#displayBox").html('Hover over a galaxy to get details');
+        $("#galaxy_info_box").html('Hover over a galaxy to get details');
         $("#displayBox").animate({height:"50%", top:"25%", right:"20px"}, 700);
 
     }
@@ -186,17 +186,19 @@
 
     function getDisplay(data_row){
         out = '';
-        for (i=0; i<data_row.length; i++) {
-            out += data_row[i]+"<br>";
-        }
-        return out;
+        $.ajax({                                      
+            url: 'http://flandersfinder.herokuapp.com/?ra=53.084&de=-27.873',
+            type: "GET"
+        }).done(function( msg ) {
+            $("#galaxy_info_box").html(out);
+        });
     }
     var t = 0;
     var timeDelta = 0;
     var prevIndex = 0;
     function findIntersect(bar){
         if (!pointCloud){  // if the data hasn't loaded yet, let the user know
-            $("#displayBox").html('Loading data, please wait...');
+            $("#galaxy_info_box").html('Loading data, please wait...');
             return;
         }
         raycaster.setFromCamera( mouse, camera );
@@ -207,7 +209,7 @@
             sizes[intersection.index] = 5.0;
             point_geometry.attributes.size.needsUpdate = true;
             data_entry = foo[intersection.index+1];
-            $("#displayBox").html(getDisplay(data_entry));
+            getDisplay(data_entry);
             if (prevIndex != intersection.index){
                 sizes[prevIndex] = 1.0;
             }
@@ -228,13 +230,13 @@
     window.addEventListener('mousemove', onDocumentMouseMove, false );
     document.addEventListener('mousedown', onMouseDown, false);
     document.addEventListener('mouseup', onMouseUp, false);
-    //window.requestAnimationFrame(draw);
 </script> 
 </head>
 <body onload="initialize();">
 <div id="viewport" style="width:100%;height:100%;position:fixed;"></div>
 <div id='displayBox'>
-    Hello!
+    <img id="img_display" src='' style="display:none;"></img>
+    <p id="galaxy_info_box"></p> 
 </div>
 </body>
 </html>
