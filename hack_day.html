@@ -73,7 +73,7 @@
             transparent:    true
         });
         point_geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
-        point_geometry.addAttribute( 'color', new THREE.BufferAttribute( colors, 3 ) );
+        point_geometry.addAttribute( 'customColor', new THREE.BufferAttribute( colors, 3 ) );
         point_geometry.computeBoundingBox();
         var material = new THREE.PointsMaterial( { size: pointSize, vertexColors: THREE.VertexColors } );
         pointCloud = new THREE.Points( point_geometry, shaderMaterial );
@@ -129,7 +129,7 @@
     var pointCloud; // will store THREE geometry of point cloud
     var mouse = new THREE.Vector2(); // used to store x & y positions of mouse for raytracing
     var intersection = null; // placeholder for raytracing later
-    var pointSize = 0.2; // size of particles
+    var pointSize = 20.0; // size of particles
     // define and add the hover-over sphere
     var alphaTexture = new THREE.ImageUtils.loadTexture('alpha2.png');
     alphaTexture.wrapS = THREE.RepeatWrapping;
