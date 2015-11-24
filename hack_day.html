@@ -2,12 +2,32 @@
 <html> 
 <head> 
 <meta charset=utf-8>
-<title>My first Three.js app</title>
+<title>I can show you the world</title>
 <link rel="stylesheet" href="style.css">
 <script style="text/javasript" src="js/PapaParse-4.1.2/papaparse.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r73/three.min.js"></script> 
 <script src="http://astronomy.susx.ac.uk/~tl229/astro_hack_day/js/FlyControls.js"></script> 
+<script type="x-shader/x-vertex" id="vertexshader">
+    attribute float size;
+    attribute vec3 customColor;
+    varying vec3 vColor;
+    void main() {
+        vColor = customColor;
+        vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+        gl_PointSize = size * ( 300.0 / length( mvPosition.xyz ) );
+        gl_Position = projectionMatrix * mvPosition;
+    }
+</script>
+<script type="x-shader/x-fragment" id="fragmentshader">
+    uniform vec3 color;
+    uniform sampler2D texture;
+    varying vec3 vColor;
+    void main() {
+        gl_FragColor = vec4( color * vColor, 1.0 );
+        gl_FragColor = gl_FragColor * texture2D( texture, gl_PointCoord );
+    }
+</script>
 <script>
     function async(arg, your_function, callback) {
         setTimeout(function() {
@@ -85,24 +105,20 @@
 
     //----Constructors----//
     var renderer = new THREE.WebGLRenderer({antialias: true});
+
     var scene = new THREE.Scene();
     scene.fog = new THREE.Fog( 0xff0101, 100, 10000 );
+
     var raycaster = new THREE.Raycaster();
     raycaster.params.Points.threshold = 0.2;
+    
+    var camera = new THREE.PerspectiveCamera(view_angle, aspect, near, far);
 
-    var camera = new THREE.PerspectiveCamera(
-    view_angle,
-    aspect,
-    near,
-    far
-    );
-    
-    var pointCloud;
-    var mouse = new THREE.Vector2();
-    var intersection = null;
-    var pointSize = 0.2;
-    
-    // hover-over sphere
+    var pointCloud; // will store THREE geometry of point cloud
+    var mouse = new THREE.Vector2(); // used to store x & y positions of mouse for raytracing
+    var intersection = null; // placeholder for raytracing later
+    var pointSize = 0.2; // size of particles
+    // define and add the hover-over sphere
     var alphaTexture = new THREE.ImageUtils.loadTexture('alpha2.png');
     alphaTexture.wrapS = THREE.RepeatWrapping;
     alphaTexture.wrapT = THREE.RepeatWrapping;
@@ -114,10 +130,9 @@
                                                         transparent: true } );
     var sphere = new THREE.Mesh( sphereGeometry, sphereMaterial );
     scene.add( sphere );
-    
     //a cross-browser method for efficient animation, more info at:
     // http://paulirish.com/2011/requestanimationframe-for-smart-animating/
-    window.requestAnimFrame = (function(){
+    window.requestAnimFrame = (function(){ // this is witchcraft
       return  window.requestAnimationFrame       || 
               window.webkitRequestAnimationFrame || 
               window.mozRequestAnimationFrame    || 
@@ -130,35 +145,26 @@
     //----Initialization----//
     function initialize()
     {
-        //Sets up the renderer to the same size as a DOM element
-        //and attaches it to that element
-        renderer.setSize(viewportWidth, viewportHeight);
-        viewport = document.getElementById('viewport');
-        viewport.appendChild(renderer.domElement);
-        camera.position.z=5.;
+        viewport = document.getElementById('viewport');  // find where the visualisation takes place
+        renderer.setSize(viewportWidth, viewportHeight); // set the size of our scene
+        viewport.appendChild(renderer.domElement); // add the renderer to the viewport
+        camera.position.z=5.; // position the camera
         //attaches fly controls to the camera
         controls = new THREE.FlyControls( camera );
         //camera control properties
         controls.movementSpeed = 1;
-        controls.domElement = viewport;
-        controls.rollSpeed = 0.01;
-        controls.autoForward = false;
-        controls.dragToLook = true;
-
-        //add the objects to the scene
-        scene.add(camera);
-
-        // call update
-        update();
+        controls.domElement = viewport; // set the domain where the controls are active
+        controls.rollSpeed = 0.01; // nice and slowly :P
+        controls.autoForward = false; // we don't want to automatically move
+        controls.dragToLook = true; // we want to only look around when clicking
+        scene.add(camera); // add the camera to the scene
+        update(); // call update to start program loop
     }
     //----Update----//
     function update() {
-        //requests the browser to call update at it's own pace
-        requestAnimFrame( update );
-        //update controls
-        controls.update( 1 );
-        //call draw
-        draw();
+        requestAnimFrame( update ); //requests the browser to call update at it's own pace
+        controls.update( 1 ); //update controls
+        draw(); // draw the scene
     }
     function onDocumentMouseMove( event ) {
         event.preventDefault();
@@ -186,7 +192,6 @@
         } else {
             sphere.position.set(0,0,0);
             sphere.scale.set(.1, .1, .1);
-
         }
         t = timer.getElapsedTime();
     }
@@ -197,14 +202,8 @@
         }
         renderer.render(scene, camera);
     }
-    function onMouseDown(){
-        //event.preventDefault();
-        ++mouseDown; console.log('mousedown');
-    }
-    function onMouseUp(){
-        //event.preventDefault();
-        --mouseDown; console.log('mouseup');
-    }
+    function onMouseDown(){ ++mouseDown; }
+    function onMouseUp(){ --mouseDown; }
     window.addEventListener('resize', onWindowResize, false );
     window.addEventListener('mousemove', onDocumentMouseMove, false );
     document.addEventListener('mousedown', onMouseDown, false);
