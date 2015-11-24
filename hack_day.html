@@ -105,23 +105,20 @@
         scene.add(pointCloud);
     }
     
-    var foo; // variable which stores the read-in csv
-    Papa.parse("http://astronomy.sussex.ac.uk/~tl229/astro_hack_day/cart_WP8_photoz_XMM_LSS.csv", {
-        download: true,
-        complete: function(results) {
-            foo = results.data;
-            async(foo, coords_to_points);
-        }
-    })
-    
     function onWindowResize( event ) {
         //SCREEN_HEIGHT = window.innerHeight;
         //SCREEN_WIDTH  = window.innerWidth;
         renderer.setSize(viewportWidth, viewportHeight);
         camera.updateProjectionMatrix();
     }
-
-    //camera attributes
+    
+    function onDocumentMouseMove( event ) {
+        event.preventDefault();
+        mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+        mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+    }
+    function onMouseDown(){ ++mouseDown; }
+    function onMouseUp(){ --mouseDown; }
 
     //a cross-browser method for efficient animation, more info at:
     // http://paulirish.com/2011/requestanimationframe-for-smart-animating/
@@ -135,9 +132,17 @@
                 window.setTimeout(callback, 1000 / 60);
               };
     })();
+    
+    Papa.parse("http://astronomy.sussex.ac.uk/~tl229/astro_hack_day/cart_WP8_photoz_XMM_LSS.csv", {
+        download: true,
+        complete: function(results) {
+            foo = results.data;
+            async(foo, coords_to_points);
+        }
+    })
+    
     //----Initialization----//
-    function initialize()
-    {
+    function initialize(){
         renderer = new THREE.WebGLRenderer({antialias: true});
         scene = new THREE.Scene();
         scene.fog = new THREE.Fog( 0xff0101, 100, 10000 );
@@ -176,11 +181,7 @@
         controls.update( 1 ); //update controls
         draw(); // draw the scene
     }
-    function onDocumentMouseMove( event ) {
-        event.preventDefault();
-        mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-        mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-    }
+
     function getDisplay(data_row){
         out = '';
         for (i=0; i<data_row.length; i++) {
@@ -216,8 +217,6 @@
         }
         renderer.render(scene, camera);
     }
-    function onMouseDown(){ ++mouseDown; }
-    function onMouseUp(){ --mouseDown; }
     window.addEventListener('resize', onWindowResize, false );
     window.addEventListener('mousemove', onDocumentMouseMove, false );
     document.addEventListener('mousedown', onMouseDown, false);
