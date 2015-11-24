@@ -70,7 +70,7 @@
             fragmentShader: document.getElementById( 'fragmentshader' ).textContent,
             blending:       THREE.AdditiveBlending,
             depthTest:      true,
-            transparent:    false
+            transparent:    true
         });
         point_geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
         point_geometry.addAttribute( 'customColor', new THREE.BufferAttribute( colors, 3 ) );
