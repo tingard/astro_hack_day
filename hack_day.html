@@ -63,7 +63,7 @@
             sizes[i]=pointSize;
         }
         uniforms = {
-            //color:     { type: "c", value: new THREE.Color( 0xffffff ) },
+            color:     { type: "c", value: new THREE.Color( 0xffffff ) },
             texture:   { type: "t", value: THREE.ImageUtils.loadTexture( "spark1.png" ) }
         };
         var shaderMaterial = new THREE.ShaderMaterial( {
@@ -133,7 +133,18 @@
     var mouse = new THREE.Vector2(); // used to store x & y positions of mouse for raytracing
     var intersection = null; // placeholder for raytracing later
     var pointSize = 1; // size of particles
-
+    // define and add the hover-over sphere
+    var alphaTexture = new THREE.ImageUtils.loadTexture('alpha2.png');
+    alphaTexture.wrapS = THREE.RepeatWrapping;
+    alphaTexture.wrapT = THREE.RepeatWrapping;
+    var sphereGeometry = new THREE.SphereGeometry( 0.1, 32, 32 );
+    var sphereGeometry = new THREE.SphereGeometry( 0.1, 32, 32 );
+    var sphereMaterial = new THREE.MeshBasicMaterial( { color: 0xccccff, 
+                                                        shading: THREE.FlatShading, 
+                                                        alphaMap: alphaTexture, 
+                                                        transparent: true } );
+    var sphere = new THREE.Mesh( sphereGeometry, sphereMaterial );
+    scene.add( sphere );
     //a cross-browser method for efficient animation, more info at:
     // http://paulirish.com/2011/requestanimationframe-for-smart-animating/
     window.requestAnimFrame = (function(){ // this is witchcraft
@@ -204,6 +215,8 @@
             }
         } else {
             sizes[prevIndex] = 1.0;
+            sphere.position.set(0,0,0);
+            sphere.scale.set(.1, .1, .1);
         }
         t = timer.getElapsedTime();
     }
